@@ -1,0 +1,29 @@
+server:
+  port: 9092
+spring:
+  application:
+    name: BlogStackBlogHubService
+
+  datasource:
+    url: jdbc:postgresql://ec2-3-110-224-124.ap-south-1.compute.amazonaws.com:5432/blogstackblog
+    #url: jdbc:postgresql://localhost:5433/BlogStackMaster
+    username: postgres
+    password: root
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+cloud:
+  aws:
+    credentials:
+      access-key: AKIAXFYS2UY4HECCOTYR
+      secret-key: 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
+    region:
+      static: ap-south-1
+    stack:
+      auto: false
+application:
+  bucket:
+    name: blogstack-upload-blog-image
+bloghub-service-version: v1.0
