@@ -19,14 +19,14 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "blogstack_blogs", schema = "master_data")
+@Table(name = "blogstack_blog", schema = "master_data")
 public class BlogStackBlogsMaster implements Serializable {
     private static final Long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "bsb_seq_id")
     private Long bsbSeqId;
-    @Column(name = "bsb_blog_id" , unique = true)
+    @Column(name = "bsb_blog_id", unique = true)
     private String bsbBlogId;
     @Column(name = "bsb_blog_name")
     private String bsbBlogName;
@@ -36,8 +36,8 @@ public class BlogStackBlogsMaster implements Serializable {
     private String bsbBlogContent;
     @Column(name = "bsb_status")
     private String bsbStatus;
-    @OneToMany(cascade = CascadeType.ALL ,fetch = FetchType.EAGER )
-    @JoinColumn(name = "bsbcm_blog_id" ,referencedColumnName = "bsb_blog_id")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "bsbcm_blog_id", referencedColumnName = "bsb_blog_id")
     private Set<BlogStackBlogCommentMaster> blogStackBlogCommentMasterSet;
     @CreatedBy
     @Column(name = "bsb_created_by")

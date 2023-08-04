@@ -17,7 +17,6 @@ public interface IBlogStackBlogMasterPojoEntityMapper {
 
     IBlogStackBlogMasterPojoEntityMapper INSTANCE = Mappers.getMapper(IBlogStackBlogMasterPojoEntityMapper.class);
 
-
     @Mappings({
             @Mapping(target = "bsbBlogId", source = "blogsMasterRequestBean.blogId"),
             @Mapping(target = "bsbBlogName", source = "blogsMasterRequestBean.blogName"),
@@ -38,6 +37,4 @@ public interface IBlogStackBlogMasterPojoEntityMapper {
         blogStackBlogMaster.setBsbModifiedDate(LocalDateTime.now());
         return blogStackBlogMaster;
     };
-
-
-    }
+}
