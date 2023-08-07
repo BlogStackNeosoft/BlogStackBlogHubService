@@ -13,6 +13,6 @@ public interface IBlogStackS3ImageUploadService {
 
     String uploadFile(MultipartFile file) throws IOException;
 
-    ServiceResponseBean uploadBlogPhoto(String email, MultipartFile blogStackUserProfilePhoto) throws IOException;
+    ServiceResponseBean uploadBlogPhoto(String blogId, MultipartFile blogStackUserProfilePhoto) throws IOException;
 
 }

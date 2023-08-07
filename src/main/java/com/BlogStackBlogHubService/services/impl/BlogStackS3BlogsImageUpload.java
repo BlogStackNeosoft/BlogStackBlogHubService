@@ -6,12 +6,14 @@ import com.BlogStackBlogHubService.commons.BlogStackMessageConstants;
 import com.BlogStackBlogHubService.entities.BlogStackBlogsMaster;
 import com.BlogStackBlogHubService.entity.pojo.mapper.IBlogStackBlogMasterEntityPojoMapper;
 import com.BlogStackBlogHubService.exceptions.BlogstackDataNotFoundException;
+import com.BlogStackBlogHubService.feign.services.IBlogStackUploadFileService;
 import com.BlogStackBlogHubService.repositories.IBlogStackBlogsMasterRepository;
 import com.BlogStackBlogHubService.services.IBlogStackS3ImageUploadService;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -30,11 +32,13 @@ public class BlogStackS3BlogsImageUpload implements IBlogStackS3ImageUploadServi
     private String bucketName;
 
     @Autowired
-    private AmazonS3 s3Clinet;
+    private AmazonS3 s3Client;
+
+    @Autowired
+    private IBlogStackUploadFileService blogStackUploadFileService;
 
     @Autowired
     private IBlogStackBlogsMasterRepository blogStackBlogsMasterRepository;
-
 
     @Override
     public File convertMultiPartFileToFile(MultipartFile blogStackBlogImage) throws FileNotFoundException, IOException {
@@ -55,8 +59,8 @@ public class BlogStackS3BlogsImageUpload implements IBlogStackS3ImageUploadServi
     public String uploadFile(MultipartFile blogStackBlogImage) throws IOException {
         File convertedFile = convertMultiPartFileToFile(blogStackBlogImage);
         String fileName = System.currentTimeMillis() + BlogStackCommonConstants.INSTANCE.UNDERSCORE_STRING + blogStackBlogImage.getOriginalFilename();
-        s3Clinet.putObject(new PutObjectRequest(bucketName, fileName, convertedFile));
-        URL url = s3Clinet.getUrl(bucketName, fileName);
+        s3Client.putObject(new PutObjectRequest(bucketName, fileName, convertedFile));
+        URL url = s3Client.getUrl(bucketName, fileName);
         return url.toString();
     }
 
@@ -66,8 +70,9 @@ public class BlogStackS3BlogsImageUpload implements IBlogStackS3ImageUploadServi
         if (blogStackBlogMasterOptional.isEmpty())
             throw new BlogstackDataNotFoundException(BlogStackMessageConstants.INSTANCE.DATA_NOT_FOUND);
 
-        String blogStackBlogImageUrl = uploadFile(blogStackUserProfilePhoto);
-        blogStackBlogMasterOptional.get().setBsbBlogPicture(blogStackBlogImageUrl);
+//        String blogStackBlogImageUrl = uploadFile(blogStackUserProfilePhoto);
+        ResponseEntity<String> blogStackBlogImageUrl = this.blogStackUploadFileService.uploadFile(blogStackUserProfilePhoto);
+        blogStackBlogMasterOptional.get().setBsbBlogPicture(blogStackBlogImageUrl.getBody());
 
         BlogStackBlogsMaster blogStackBlogsMaster = this.blogStackBlogsMasterRepository.saveAndFlush(blogStackBlogMasterOptional.get());
         return ServiceResponseBean.builder().status(Boolean.TRUE).data(IBlogStackBlogMasterEntityPojoMapper.mapBlogMasterEntityPojoMapping.apply(Optional.of(blogStackBlogsMaster))).build();
