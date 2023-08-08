@@ -10,10 +10,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
-@FeignClient(name = "BlogStackCommonsService" , url = "http://localhost:9091", configuration = FeignSupportConfig.class)
+@FeignClient(name = "BlogStackCommonsService" , url = "http://localhost:9091/v1.0/file-upload", configuration = FeignSupportConfig.class)
 public interface IBlogStackUploadFileService {
 
-    @PutMapping(value = "/v1.0/file-upload/", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    ResponseEntity<String> uploadFile(@RequestPart(name = "file") MultipartFile file) throws IOException;
+    @PutMapping(value = "/", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE, MediaType.APPLICATION_JSON_VALUE})
+    ResponseEntity<String> uploadFile(@RequestPart(name = "file") MultipartFile file, @RequestPart(name = "bucketName") String bucketName) throws IOException;
 
 }
