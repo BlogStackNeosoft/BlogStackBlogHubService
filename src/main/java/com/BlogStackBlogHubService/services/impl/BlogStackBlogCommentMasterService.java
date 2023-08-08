@@ -4,8 +4,9 @@ package com.BlogStackBlogHubService.services.impl;
 import com.BlogStackBlogHubService.beans.request.BlogCommentMasterRequestBean;
 import com.BlogStackBlogHubService.beans.response.ServiceResponseBean;
 import com.BlogStackBlogHubService.commons.BlogStackMessageConstants;
+import com.BlogStackBlogHubService.entities.BlogStackBlogCommentMaster;
 import com.BlogStackBlogHubService.entities.BlogStackBlogsMaster;
-import com.BlogStackBlogHubService.entity.pojo.mapper.IBlogStackBlogMasterEntityPojoMapper;
+import com.BlogStackBlogHubService.entity.pojo.mapper.IBlogStackBlogCommentMasterEntityPojoMapper;
 import com.BlogStackBlogHubService.enums.UuidPrefixEnum;
 import com.BlogStackBlogHubService.exceptions.BlogstackDataNotFoundException;
 import com.BlogStackBlogHubService.pojo.entity.mapper.IBlogStackBlogCommentMasterPojoEntityMapper;
@@ -23,39 +24,35 @@ import java.util.Optional;
 
 @Service
 public class BlogStackBlogCommentMasterService implements IBlogStackBlogCommentMasterService {
+    private Logger LOGGER = LoggerFactory.getLogger(BlogStackBlogCommentMasterService.class);
+
     @Autowired
     private IBlogStackBlogCommentMasterRepository blogStackBlogCommentMasterRepository;
 
     @Autowired
     private IBlogStackBlogsMasterRepository blogStackBlogsMasterRepository;
 
-    private Logger LOGGER = LoggerFactory.getLogger(BlogStackBlogCommentMasterService.class);
-
-
     @Value("#{'${spring.application.name}'.toUpperCase()}")
     private String springApplicationName;
 
     @Override
     public Optional<ServiceResponseBean> addBlogComment(String blogId, BlogCommentMasterRequestBean blogCommentMasterRequestBean) {
-
         String commentId = BlogStackCommonUtils.INSTANCE.uniqueIdentifier(UuidPrefixEnum.COMMENT_ID.getValue());
         LOGGER.info("CommentId :: {}", commentId);
 
         blogCommentMasterRequestBean.setCommentId(commentId);
         blogCommentMasterRequestBean.setCreatedBy(springApplicationName);
-
+        BlogStackBlogCommentMaster blogStackBlogCommentMaster = IBlogStackBlogCommentMasterPojoEntityMapper.INSTANCE.blogCommentMasterRequestToCommentMasterEntity(blogCommentMasterRequestBean);
         Optional<BlogStackBlogsMaster> blogStackBlogsMasterOptional = this.blogStackBlogsMasterRepository.findByBsbBlogId(blogId);
         LOGGER.warn("BlogStackBlogMasterOptional :: {}", blogStackBlogsMasterOptional);
 
         if (blogStackBlogsMasterOptional.isEmpty())
             throw new BlogstackDataNotFoundException(BlogStackMessageConstants.INSTANCE.DATA_NOT_FOUND);
 
-        Optional<BlogStackBlogsMaster> blogStackBlogsCommentMasterOptional = blogStackBlogsMasterOptional.map(blog -> {
-            blog.getBlogStackBlogCommentMasterSet().add(IBlogStackBlogCommentMasterPojoEntityMapper.INSTANCE.blogCommentMasterRequestToCommentMasterEntity(blogCommentMasterRequestBean));
-            return this.blogStackBlogsMasterRepository.saveAndFlush(blog);
-        });
-        return Optional.of(ServiceResponseBean.builder().status(Boolean.TRUE).data(IBlogStackBlogMasterEntityPojoMapper.mapBlogMasterEntityPojoMapping.apply(blogStackBlogsMasterOptional)).build());
+        blogStackBlogsMasterOptional.get().getBlogStackBlogCommentMasterSet().add(blogStackBlogCommentMaster);
+        this.blogStackBlogsMasterRepository.saveAndFlush(blogStackBlogsMasterOptional.get());
 
+        return Optional.of(ServiceResponseBean.builder().status(Boolean.TRUE).data(IBlogStackBlogCommentMasterEntityPojoMapper.mapBlogCommentMasterEntityPojoMapping.apply(blogStackBlogCommentMaster)).build());
     }
 
     @Override

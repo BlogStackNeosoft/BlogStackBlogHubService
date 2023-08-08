@@ -7,6 +7,7 @@ import com.BlogStackBlogHubService.services.IBlogStackS3ImageUploadService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -48,8 +49,8 @@ public class BlogStackBlogMasterController {
         return ResponseEntity.ok(this.blogStackBlogsService.deleteBlog(blogId));
     }
 
-    @PutMapping("/{blog-id}")
-    public ResponseEntity<ServiceResponseBean> uploadPicture(@PathVariable(value = "blog-id")String blogId , @RequestParam(value = "blog-image")MultipartFile blogImage) throws IOException {
+    @PutMapping(value = "/{blog_id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<ServiceResponseBean> uploadPicture(@PathVariable(value = "blog_id")String blogId , @RequestPart(value = "file") MultipartFile blogImage) throws IOException {
        return ResponseEntity.ok( blogStackS3ImageUploadService.uploadBlogPhoto(blogId ,blogImage));
     }
 }

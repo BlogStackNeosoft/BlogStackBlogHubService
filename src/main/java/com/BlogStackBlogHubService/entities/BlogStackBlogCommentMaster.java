@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "blogstack-block-comment_master", schema = "master_data")
+@Table(name = "blogstack_blog_comment_master", schema = "master_data")
 public class BlogStackBlogCommentMaster implements Serializable {
     private static final Long serialVersionUID = 1L;
 

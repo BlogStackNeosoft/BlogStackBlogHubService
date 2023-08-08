@@ -9,10 +9,10 @@ import java.io.IOException;
 
 public interface IBlogStackS3ImageUploadService {
 
-    File convertMultiPartFileToFile(MultipartFile file)throws FileNotFoundException, IOException;
+//    File convertMultiPartFileToFile(MultipartFile file)throws FileNotFoundException, IOException;
+//
+//    String uploadFile(MultipartFile file) throws IOException;
 
-    String uploadFile(MultipartFile file) throws IOException;
-
-    ServiceResponseBean uploadBlogPhoto(String email, MultipartFile blogStackUserProfilePhoto) throws IOException;
+    ServiceResponseBean uploadBlogPhoto(String blogId, MultipartFile blogStackUserProfilePhoto) throws IOException;
 
 }
