@@ -32,7 +32,7 @@ public class BlogStackBlogsMaster implements Serializable {
     private String bsbBlogName;
     @Column(name = "bsb_blog_picture")
     private String bsbBlogPicture;
-    @Column(name = "bsb_blog_content")
+    @Column(name = "bsb_blog_content" ,columnDefinition = "TEXT")
     private String bsbBlogContent;
     @Column(name = "bsb_status")
     private String bsbStatus;

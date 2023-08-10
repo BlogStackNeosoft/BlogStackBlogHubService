@@ -27,10 +27,10 @@ public interface IBlogStackBlogMasterEntityPojoMapper {
                         .blogId(blogStackBlogMaster.getBsbBlogId())
                         .blogName(blogStackBlogMaster.getBsbBlogName())
                         .blogContent(blogStackBlogMaster.getBsbBlogContent())
+                        .blogCommentMasterResponseBeanSet(IBlogStackBlogCommentMasterEntityPojoMapper.mapCommentMasterEntityListToPojoListMapping.apply(blogStackBlogMaster.getBlogStackBlogCommentMasterSet()))
                         .blogPicture(blogStackBlogMaster.getBsbBlogPicture())
                         .status(blogStackBlogMaster.getBsbStatus())
                         .addedOn(blogStackBlogMaster.getBsbCreatedDate())
                         .build();
             }).toList();
-
 }

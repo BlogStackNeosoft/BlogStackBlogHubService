@@ -16,6 +16,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("${bloghub-service-version}/blog")
+@CrossOrigin("*")
 public class BlogStackBlogMasterController {
 
     @Autowired
@@ -24,27 +25,27 @@ public class BlogStackBlogMasterController {
     private IBlogStackS3ImageUploadService blogStackS3ImageUploadService;
 
     @PostMapping("/")
-    public ResponseEntity<Optional<ServiceResponseBean>> addQuestion(@Valid @RequestBody BlogMasterRequestBean blogMasterRequestBean){
+    public ResponseEntity<Optional<ServiceResponseBean>> addBlog(@Valid @RequestBody BlogMasterRequestBean blogMasterRequestBean){
         return ResponseEntity.ok(this.blogStackBlogsService.addBlog(blogMasterRequestBean));
     }
 
     @GetMapping("/")
-    public ResponseEntity<Optional<ServiceResponseBean>> fetchAllQuestion(@RequestParam(defaultValue = "0") Integer page,
+    public ResponseEntity<Optional<ServiceResponseBean>> fetchAllBlog(@RequestParam(defaultValue = "0") Integer page,
                                               @RequestParam(defaultValue = "10") Integer size){
         return ResponseEntity.ok(this.blogStackBlogsService.fetchAllBlogs(page, size));
     }
     @GetMapping("/{blog_id}")
-    public ResponseEntity<Optional<ServiceResponseBean>> fetchQuestionById(@PathVariable(value = "blog_id") @NotBlank(message = "Question Id can not be empty.") String blogId){
+    public ResponseEntity<Optional<ServiceResponseBean>> fetchBlogById(@PathVariable(value = "blog_id") @NotBlank(message = "Question Id can not be empty.") String blogId){
         return ResponseEntity.ok(this.blogStackBlogsService.fetchBlogById(blogId));
     }
 
     @PutMapping("/")
-    public ResponseEntity<Optional<ServiceResponseBean>> updateQuestion(@Valid @RequestBody BlogMasterRequestBean blogMasterRequestBean){
+    public ResponseEntity<Optional<ServiceResponseBean>> updateBlog(@Valid @RequestBody BlogMasterRequestBean blogMasterRequestBean){
         return ResponseEntity.ok(this.blogStackBlogsService.updateBlog(blogMasterRequestBean));
     }
 
     @DeleteMapping("/{blog_id}")
-    public ResponseEntity<Optional<ServiceResponseBean>> deleteQuestion(@PathVariable(value = "blog_id") @NotBlank(message = "Question Id can not be empty.") String blogId){
+    public ResponseEntity<Optional<ServiceResponseBean>> deleteBlog(@PathVariable(value = "blog_id") @NotBlank(message = "Question Id can not be empty.") String blogId){
         return ResponseEntity.ok(this.blogStackBlogsService.deleteBlog(blogId));
     }
 

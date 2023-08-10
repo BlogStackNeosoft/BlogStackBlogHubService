@@ -103,6 +103,6 @@ public class BlogStackBlogsServiceImpl implements IBlogStackBlogsService {
 
         this.blogStackBlogsMasterRepository.delete(blogStackBlogsMasterOptional.get());
         return Optional.of(ServiceResponseBean.builder().status(Boolean.TRUE).message(BlogStackMessageConstants.INSTANCE.DATA_DELETED).build());
-
     }
+
 }
