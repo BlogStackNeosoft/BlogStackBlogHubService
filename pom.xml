@@ -96,6 +96,12 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- Internal Dependencies-->
+		<dependency>
+			<groupId>com.blogstack</groupId>
+			<artifactId>BlogStackAOPService</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 
 	<dependencyManagement>
