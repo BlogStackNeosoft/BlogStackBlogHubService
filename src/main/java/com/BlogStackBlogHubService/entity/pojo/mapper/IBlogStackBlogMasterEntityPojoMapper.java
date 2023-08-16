@@ -16,6 +16,7 @@ public interface IBlogStackBlogMasterEntityPojoMapper {
             .blogName(blogStackBlogMaster.isEmpty()?    null  :blogStackBlogMaster.get().getBsbBlogName())
             .blogContent(blogStackBlogMaster.isEmpty()?    null  :blogStackBlogMaster.get().getBsbBlogContent())
             .blogPicture(blogStackBlogMaster.get().getBlogStackBlogCommentMasterSet()==null ?    null  :blogStackBlogMaster.get().getBsbBlogPicture())
+
             .blogCommentMasterResponseBeanSet(blogStackBlogMaster.get().getBlogStackBlogCommentMasterSet()==null? null : IBlogStackBlogCommentMasterEntityPojoMapper.mapCommentMasterEntityListToPojoListMapping.apply(blogStackBlogMaster.get().getBlogStackBlogCommentMasterSet()))
             .status(blogStackBlogMaster.isEmpty()?    null  :blogStackBlogMaster.get().getBsbStatus())
             .addedOn(blogStackBlogMaster.isEmpty()?    null  :blogStackBlogMaster.get().getBsbCreatedDate())

@@ -27,6 +27,8 @@ public class BlogMasterResponseBean {
     @JsonProperty(value = "blog_content")
     private String blogContent;
     private String status;
+    @JsonProperty(value = "user")
+    private UserResponseBean userResponseBean;
     @JsonProperty(value = "comments")
     private Set<BlogCommentMasterResponseBean> blogCommentMasterResponseBeanSet;
     @JsonProperty(value = "added_on")

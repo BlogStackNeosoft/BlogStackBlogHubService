@@ -1,5 +1,6 @@
 package com.BlogStackBlogHubService.entities;
 
+import com.BlogStackBlogHubService.beans.response.UserResponseBean;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -36,6 +37,8 @@ public class BlogStackBlogsMaster implements Serializable {
     private String bsbBlogContent;
     @Column(name = "bsb_status")
     private String bsbStatus;
+    @Column(name = "bsb_userid")
+    private String bsbUserId;
     @OneToMany(cascade = CascadeType.ALL ,fetch = FetchType.EAGER )
     @JoinColumn(name = "bsbcm_blog_id" ,referencedColumnName = "bsb_blog_id")
     private Set<BlogStackBlogCommentMaster> blogStackBlogCommentMasterSet;
@@ -51,4 +54,7 @@ public class BlogStackBlogsMaster implements Serializable {
     @LastModifiedDate
     @Column(name = "bsb_modified_date")
     private LocalDateTime bsbModifiedDate;
+
+    @Transient
+    private UserResponseBean userResponseBean;
 }

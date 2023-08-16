@@ -22,6 +22,8 @@ public class BlogMasterRequestBean {
     private String blogPicture;
     @JsonProperty(value = "blog_content")
     private String blogContent;
+    @JsonProperty(value = "user_id")
+    private String blogUserId;
     @JsonIgnore
     private String createdBy;
     @JsonIgnore

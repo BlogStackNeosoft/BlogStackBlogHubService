@@ -42,6 +42,9 @@ public class BlogStackBlogCommentMaster implements Serializable {
     @Column(name = "bsbcm_status")
     private String bsbcmStatus;
 
+    @Column(name = "bsbcm_userid")
+    private String bsbcmUserId;
+
     @CreatedBy
     @Column(name = "bsbcm_created_by")
     private String bsbcmCreatedBy;
@@ -57,4 +60,6 @@ public class BlogStackBlogCommentMaster implements Serializable {
     @LastModifiedDate
     @Column(name = "bsbcm_modified_date")
     private LocalDateTime bsbcmModifiedDate;
+
+
 }

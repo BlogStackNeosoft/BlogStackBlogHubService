@@ -11,4 +11,5 @@ public enum BlogStackMessageConstants {
     public final String DATA_DELETED = "Data Deleted.";
 
     public final String ID_CANT_EMPTY = "Id can not be empty.";
+    public final String USERID_CANT_BLANK="User id can not be blank";
 }

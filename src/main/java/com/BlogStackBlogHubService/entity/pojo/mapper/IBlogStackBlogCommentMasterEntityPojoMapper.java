@@ -2,7 +2,6 @@ package com.BlogStackBlogHubService.entity.pojo.mapper;
 
 import com.BlogStackBlogHubService.beans.response.BlogCommentMasterResponseBean;
 import com.BlogStackBlogHubService.entities.BlogStackBlogCommentMaster;
-
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;

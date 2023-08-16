@@ -9,6 +9,6 @@ import java.util.Optional;
 
 @Repository
 public interface IBlogStackBlogsMasterRepository extends JpaRepository<BlogStackBlogsMaster, Long> {
-
     Optional<BlogStackBlogsMaster> findByBsbBlogId(String blogId);
+
 }

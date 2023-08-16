@@ -25,7 +25,8 @@ public interface IBlogStackBlogMasterPojoEntityMapper {
             @Mapping(target = "bsbBlogPicture", source = "blogsMasterRequestBean.blogPicture"),
             @Mapping(target = "bsbStatus", expression = "java(BlogMasterStatusEnum.ACTIVE.getValue())"),
             @Mapping(target = "bsbCreatedBy", source = "blogsMasterRequestBean.createdBy"),
-            @Mapping(target = "bsbCreatedDate", expression = "java(LocalDateTime.now())")
+            @Mapping(target = "bsbCreatedDate", expression = "java(LocalDateTime.now())"),
+            @Mapping(target = "bsbUserId" , source = "blogsMasterRequestBean.blogUserId")
     })
     BlogStackBlogsMaster blogMasterRequestToBlogMasterEntity(BlogMasterRequestBean blogsMasterRequestBean);
 
@@ -34,6 +35,7 @@ public interface IBlogStackBlogMasterPojoEntityMapper {
         blogStackBlogMaster.setBsbBlogName(blogMasterRequestBean.getBlogName());
         blogStackBlogMaster.setBsbBlogContent(blogMasterRequestBean.getBlogContent());
         blogStackBlogMaster.setBsbBlogPicture(blogMasterRequestBean.getBlogPicture());
+        blogStackBlogMaster.setBsbUserId(blogMasterRequestBean.getBlogUserId());
         blogStackBlogMaster.setBsbModifiedBy(blogMasterRequestBean.getModifiedBy());
         blogStackBlogMaster.setBsbModifiedDate(LocalDateTime.now());
         return blogStackBlogMaster;
